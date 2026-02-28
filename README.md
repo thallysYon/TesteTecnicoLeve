@@ -83,7 +83,30 @@ Update-Database
 
 > Caso ainda não existam migrations no seu ambiente, gere antes com `Add-Migration`.
 
-### 3. Configurar e-mail
+> ### 3. Popular o banco com dados de exemplo
+
+Após aplicar as migrations e executar a aplicação ao menos uma vez (para que o usuário gestor inicial seja criado), é possível popular o banco com dados adicionais de teste.
+
+Para isso, execute o script:
+
+* `sqlscripts/populacao.sql`
+
+Esse script insere:
+
+* usuários adicionais de exemplo
+* tarefas de exemplo
+* registros suficientes para facilitar testes de listagem e paginação
+
+> **Importante:** o script considera que o usuário gestor inicial já foi criado pela aplicação.
+
+### Credenciais dos usuários inseridos pelo script
+
+Os usuários inseridos pelo script utilizam a mesma senha do usuário gestor inicial:
+
+* **Senha:** `teste123`
+
+
+### 4. Configurar e-mail
 
 Adicione a seção abaixo no `appsettings.json`:
 
@@ -101,7 +124,7 @@ Adicione a seção abaixo no `appsettings.json`:
 
 > Para desenvolvimento, a recomendação é manter a senha fora do `appsettings.json` e usar configuração local.
 
-### 4. Executar
+### 5. Executar
 
 Basta iniciar o projeto normalmente pelo Visual Studio (`F5` ou `Ctrl + F5`).
 
