@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Leve</title>
+
+    <link rel="stylesheet" href="~/lib/uikit/css/uikit.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="layout-body">
+    @{
+        var usuarioAutenticado = User.Identity?.IsAuthenticated == true;
+        var isGestor = bool.TryParse(User.FindFirst("IsGestor")?.Value, out var resultado) && resultado;
+    }
+
+    <header>
+        <div class="uk-navbar-container uk-navbar-transparent uk-background-secondary uk-light">
+            <div class="uk-container">
+                <nav uk-navbar>
+                    <div class="uk-navbar-left">
+                        <a class="uk-navbar-item uk-logo" asp-controller="Home" asp-action="Index">
+                            Leve
+                        </a>
+
+                        @if (usuarioAutenticado)
+                        {
+                            <ul class="uk-navbar-nav uk-visible@s">
+                                <li>
+                                    <a asp-controller="Home" asp-action="Index">Início</a>
+                                </li>
+
+                                <li>
+                                    <a asp-controller="Tarefas" asp-action="Index">
+                                        <span uk-icon="check"></span>
+                                        <span class="uk-margin-small-left">Tarefas</span>
+                                    </a>
+                                </li>
+
+                                @if (isGestor)
+                                {
+                                    <li>
+                                        <a asp-controller="Usuarios" asp-action="Index">
+                                            <span uk-icon="users"></span>
+                                            <span class="uk-margin-small-left">Usuários</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+
+                    <div class="uk-navbar-right">
+                        <ul class="uk-navbar-nav uk-visible@s">
+                            <partial name="_LoginPartial" />
+                        </ul>
+
+                        <a class="uk-navbar-toggle uk-hidden@s"
+                           href="#menu-mobile"
+                           uk-toggle
+                           aria-label="Abrir menu">
+                            <span uk-navbar-toggle-icon></span>
+                        </a>
+
+                        @if (usuarioAutenticado)
+                        {
+                            <form id="logoutForm" asp-controller="Autenticacao" asp-action="LogoutConfirmado" method="post" class="uk-hidden">
+                                @Html.AntiForgeryToken()
+                            </form>
+                        }
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div id="menu-mobile" uk-offcanvas="overlay: true; flip: true">
+        <div class="uk-offcanvas-bar">
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+            <h3>Menu</h3>
+
+            <ul class="uk-nav uk-nav-default">
+                @if (usuarioAutenticado)
+                {
+                    <li class="uk-nav-header">Navegação</li>
+
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Início</a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Tarefas" asp-action="Index">Tarefas</a>
+                    </li>
+
+                    @if (isGestor)
+                    {
+                        <li>
+                            <a asp-controller="Usuarios" asp-action="Index">Usuários</a>
+                        </li>
+                    }
+
+                    <li class="uk-nav-divider"></li>
+
+                    <li class="uk-nav-header">@User.Identity?.Name</li>
+
+                    <li>
+                        <a href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();">
+                            Sair
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-controller="Autenticacao" asp-action="Login">Login</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <main role="main" class="layout-main">
+        <div class="uk-container uk-margin-top">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="uk-section uk-section-xsmall uk-text-center uk-text-muted">
+        <div class="uk-container">
+            &copy; 2026 -
+            <a href="https://github.com/thallysYon" target="_blank" rel="noopener noreferrer">
+                Thallys Yon
+            </a>
+        </div>
+    </footer>
+
+    <script src="~/lib/uikit/js/uikit.min.js"></script>
+    <script src="~/lib/uikit/js/uikit-icons.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

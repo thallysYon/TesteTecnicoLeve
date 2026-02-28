@@ -1,0 +1,108 @@
+﻿@model Leve.ViewModels.UsuarioFormularioViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar usuário";
+}
+
+<div class="uk-section">
+    <div class="uk-container uk-container-small">
+        <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+            <div class="uk-margin-bottom">
+                <h1 class="uk-card-title uk-margin-remove-bottom">Cadastrar usuário</h1>
+                <p class="uk-text-muted uk-margin-small-top">
+                    Preencha os dados abaixo para criar um novo acesso ao sistema.
+                </p>
+            </div>
+
+            @if (TempData["Sucesso"] is not null)
+            {
+                <div class="uk-alert-success" uk-alert>
+                    @TempData["Sucesso"]
+                </div>
+            }
+
+            <form asp-action="Cadastrar" method="post" enctype="multipart/form-data" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
+
+                <div class="uk-margin">
+                    <label asp-for="NomeCompleto" class="uk-form-label">Nome</label>
+                    <input asp-for="NomeCompleto" class="uk-input" />
+                    <span asp-validation-for="NomeCompleto" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-2@s">
+                        <label asp-for="DataNascimento" class="uk-form-label">Data de nascimento</label>
+                        <input asp-for="DataNascimento" class="uk-input" />
+                        <span asp-validation-for="DataNascimento" class="uk-text-danger uk-text-small"></span>
+                    </div>
+
+                    <div class="uk-width-1-2@s">
+                        <label asp-for="Email" class="uk-form-label">E-mail</label>
+                        <input asp-for="Email" class="uk-input" />
+                        <span asp-validation-for="Email" class="uk-text-danger uk-text-small"></span>
+                    </div>
+                </div>
+
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-2@s">
+                        <label asp-for="TelefoneFixo" class="uk-form-label">Telefone Fixo</label>
+                        <input asp-for="TelefoneFixo" class="uk-input" />
+                        <span asp-validation-for="TelefoneFixo" class="uk-text-danger uk-text-small"></span>
+                    </div>
+
+                    <div class="uk-width-1-2@s">
+                        <label asp-for="TelefoneCelular" class="uk-form-label"> Telefone Celular</label>
+                        <input asp-for="TelefoneCelular" class="uk-input" />
+                        <span asp-validation-for="TelefoneCelular" class="uk-text-danger uk-text-small"></span>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label asp-for="Endereco" class="uk-form-label">Endereço</label>
+                    <input asp-for="Endereco" class="uk-input" />
+                    <span asp-validation-for="Endereco" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-margin">
+                    <label asp-for="FotoArquivo" class="uk-form-label">Foto</label>
+                    <input asp-for="FotoArquivo" class="uk-input" type="file" accept=".jpg,.jpeg,.png,.webp" />
+                    <span asp-validation-for="FotoArquivo" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-margin">
+                    <label>
+                        <input asp-for="IsGestor" class="uk-checkbox" />
+                        Usuário gestor
+                    </label>
+                </div>
+
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-2@s">
+                        <label asp-for="Senha" class="uk-form-label"></label>
+                        <input asp-for="Senha" class="uk-input" />
+                        <span asp-validation-for="Senha" class="uk-text-danger uk-text-small"></span>
+                    </div>
+
+                    <div class="uk-width-1-2@s">
+                        <label asp-for="ConfirmarSenha" class="uk-form-label">Confirmar senha</label>
+                        <input asp-for="ConfirmarSenha" class="uk-input" />
+                        <span asp-validation-for="ConfirmarSenha" class="uk-text-danger uk-text-small"></span>
+                    </div>
+                </div>
+
+                <div class="uk-margin-top">
+                    <button type="submit" class="uk-button uk-button-primary">
+                        Salvar cadastro
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

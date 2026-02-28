@@ -1,0 +1,55 @@
+﻿@model Leve.ViewModels.TarefaFormularioViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar tarefa";
+}
+
+<div class="uk-section">
+    <div class="uk-container uk-container-small">
+        <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+            <div class="uk-margin-bottom">
+                <h1 class="uk-card-title uk-margin-remove-bottom">Cadastrar tarefa</h1>
+                <p class="uk-text-muted uk-margin-small-top">
+                    Defina a atividade e selecione o responsável.
+                </p>
+            </div>
+
+            <form asp-action="Cadastrar" method="post" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
+
+                <div class="uk-margin">
+                    <label asp-for="ResponsavelId" class="uk-form-label">Responsável</label>
+                    <select asp-for="ResponsavelId" asp-items="Model.Responsaveis" class="uk-select">
+                        <option value="">Selecione</option>
+                    </select>
+                    <span asp-validation-for="ResponsavelId" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-margin">
+                    <label asp-for="Mensagem" class="uk-form-label">Descrição da tarefa</label>
+                    <textarea asp-for="Mensagem" class="uk-textarea" rows="4" placeholder="Descreva a atividade que deve ser realizada."></textarea>
+                    <span asp-validation-for="Mensagem" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-margin">
+                    <label asp-for="DataLimite" class="uk-form-label">Data limite</label>
+                    <input asp-for="DataLimite" class="uk-input" />
+                    <span asp-validation-for="DataLimite" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-margin-top">
+                    <button type="submit" class="uk-button uk-button-primary">
+                        <span uk-icon="plus"></span>
+                        <span class="uk-margin-small-left">Salvar tarefa</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,91 @@
+﻿@using Leve.Enums
+@model Leve.Models.Tarefa
+
+@{
+    ViewData["Title"] = "Detalhes da tarefa";
+    var concluida = Model.Status == StatusTarefa.Concluida;
+    var isGestor = bool.TryParse(User.FindFirst("IsGestor")?.Value, out var resultado) && resultado;
+}
+
+<div class="uk-section">
+    <div class="uk-container uk-container-small">
+        @if (TempData["Sucesso"] is not null)
+        {
+            <div class="uk-alert-success" uk-alert>
+                @TempData["Sucesso"]
+            </div>
+        }
+
+        <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-bottom">
+            <div>
+                <h1 class="uk-heading-bullet uk-margin-remove-bottom">Detalhes da tarefa</h1>
+                <p class="uk-text-muted uk-margin-small-top">
+                    Consulte as informações completas da tarefa selecionada.
+                </p>
+            </div>
+
+            <div class="uk-flex uk-flex-middle uk-grid-small" uk-grid>
+                @if (isGestor)
+                {
+                    <div>
+                        <a asp-controller="Tarefas"
+                           asp-action="Editar"
+                           asp-route-id="@Model.Id"
+                           class="uk-button uk-button-primary">
+                            <span uk-icon="file-edit"></span>
+                            <span class="uk-margin-small-left">Editar</span>
+                        </a>
+                    </div>
+                }
+
+                <div>
+                    <a asp-controller="Tarefas"
+                       asp-action="Index"
+                       class="uk-button uk-button-default">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+            <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-bottom">
+                <span class="uk-label @(concluida ? "uk-label-success" : "uk-label-warning")">
+                    @(concluida ? "Concluída" : "Pendente")
+                </span>
+
+                <span class="uk-text-small uk-text-muted">
+                    Data limite: @(Model.DataLimite?.ToString("dd/MM/yyyy") ?? "Não informada")
+                </span>
+            </div>
+
+            <p>
+                <strong>Descrição:</strong><br />
+                @Model.Mensagem
+            </p>
+
+            <p>
+                <strong>Responsável:</strong><br />
+                @(Model.Responsavel?.NomeCompleto ?? "Não informado")
+            </p>
+
+            <p>
+                <strong>Gestor criador:</strong><br />
+                @(Model.GestorCriador?.NomeCompleto ?? "Não informado")
+            </p>
+
+            <p>
+                <strong>Criada em:</strong><br />
+                @Model.DataCriacao.ToString("dd/MM/yyyy HH:mm")
+            </p>
+
+            @if (concluida && Model.DataConclusao.HasValue)
+            {
+                <p class="uk-margin-remove-bottom">
+                    <strong>Concluída em:</strong><br />
+                    @Model.DataConclusao.Value.ToString("dd/MM/yyyy HH:mm")
+                </p>
+            }
+        </div>
+    </div>
+</div>

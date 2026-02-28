@@ -1,0 +1,59 @@
+﻿@model Leve.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="uk-section">
+    <div class="uk-container uk-container-xsmall">
+        <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+            <div class="uk-text-center uk-margin-bottom">
+                <h1 class="uk-card-title uk-margin-remove-bottom">Acessar sistema</h1>
+                <p class="uk-text-muted uk-margin-small-top">
+                    Entre com seu e-mail e senha para continuar.
+                </p>
+            </div>
+
+            <form asp-action="Login" method="post" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
+
+                <div class="uk-margin">
+                    <label asp-for="Email" class="uk-form-label">E-mail</label>
+                    <div class="uk-form-controls uk-inline uk-width-1-1">
+                        <span class="uk-form-icon" uk-icon="mail"></span>
+                        <input asp-for="Email"
+                               class="uk-input"
+                               placeholder="seuemail@empresa.com"
+                               autocomplete="username" />
+                    </div>
+                    <span asp-validation-for="Email" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-margin">
+                    <label asp-for="Senha" class="uk-form-label">Senha</label>
+                    <div class="uk-form-controls uk-inline uk-width-1-1">
+                        <span class="uk-form-icon" uk-icon="lock"></span>
+                        <input asp-for="Senha"
+                               class="uk-input"
+                               placeholder="Digite sua senha"
+                               autocomplete="current-password" />
+                    </div>
+                    <span asp-validation-for="Senha" class="uk-text-danger uk-text-small"></span>
+                </div>
+
+                <div class="uk-margin-top">
+                    <button type="submit" class="uk-button uk-button-primary uk-width-1-1">
+                        <span uk-icon="sign-in"></span>
+                        <span class="uk-margin-small-left">Entrar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

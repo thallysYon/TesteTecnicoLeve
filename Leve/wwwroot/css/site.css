@@ -1,0 +1,58 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.layout-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-main {
+    flex: 1;
+}
+
+.uk-navbar-container.uk-background-secondary {
+    background-color: #222 !important;
+}
+
+.usuario-card-icone {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #666;
+    flex-shrink: 0;
+}
+
+.usuario-detalhes-foto,
+.usuario-detalhes-foto-placeholder {
+    width: 220px;
+    height: 220px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.usuario-detalhes-foto-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #666;
+}

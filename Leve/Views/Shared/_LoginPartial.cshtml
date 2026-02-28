@@ -1,0 +1,24 @@
+﻿@if (User.Identity?.IsAuthenticated == true)
+{
+    <li>
+        <span class="uk-navbar-item">
+            <span uk-icon="user"></span>
+            <span class="uk-margin-small-left">Olá, @User.Identity?.Name</span>
+        </span>
+    </li>
+    <li>
+        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
+            <span uk-icon="sign-out"></span>
+            <span class="uk-margin-small-left">Sair</span>
+        </a>
+    </li>
+}
+else
+{
+    <li>
+        <a asp-controller="Autenticacao" asp-action="Login">
+            <span uk-icon="sign-in"></span>
+            <span class="uk-margin-small-left">Login</span>
+        </a>
+    </li>
+}

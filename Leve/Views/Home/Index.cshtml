@@ -1,0 +1,64 @@
+﻿@{
+ViewData["Title"] = "Início";
+var isGestor = bool.TryParse(User.FindFirst("IsGestor")?.Value, out var resultado) && resultado;
+}
+
+<div class="uk-section">
+    <div class="uk-container">
+        <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small uk-margin-bottom">
+            <h1 class="uk-card-title uk-margin-remove-bottom">
+                Bem-vindo, @User.Identity?.Name
+            </h1>
+            <p class="uk-text-muted uk-margin-small-top">
+                Acompanhe suas tarefas e acesse as funcionalidades disponíveis para o seu perfil.
+            </p>
+        </div>
+
+        <div class="uk-grid-small uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@l" uk-grid>
+            <div>
+                <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+                    <h3 class="uk-card-title">Tarefas</h3>
+                    <p class="uk-text-muted">
+                        Consulte tarefas pendentes, concluídas e acompanhe os prazos.
+                    </p>
+
+                    <a asp-controller="Tarefas" asp-action="Index" class="uk-button uk-button-primary uk-width-1-1">
+                        <span uk-icon="check"></span>
+                        <span class="uk-margin-small-left">Ver tarefas</span>
+                    </a>
+                </div>
+            </div>
+
+            @if (isGestor)
+            {
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+                        <h3 class="uk-card-title">Usuários</h3>
+                        <p class="uk-text-muted">
+                            Gerencie os usuários cadastrados e realize novos cadastros.
+                        </p>
+
+                        <a asp-controller="Usuarios" asp-action="Index" class="uk-button uk-button-primary uk-width-1-1">
+                            <span uk-icon="users"></span>
+                            <span class="uk-margin-small-left">Gerenciar usuários</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+                        <h3 class="uk-card-title">Nova tarefa</h3>
+                        <p class="uk-text-muted">
+                            Cadastre uma nova tarefa para um usuário da equipe.
+                        </p>
+
+                        <a asp-controller="Tarefas" asp-action="Cadastrar" class="uk-button uk-button-default uk-width-1-1">
+                            <span uk-icon="plus"></span>
+                            <span class="uk-margin-small-left">Cadastrar tarefa</span>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "uikit@3.23.13",
+      "destination": "wwwroot/lib/uikit/"
+    }
+  ]
+}
