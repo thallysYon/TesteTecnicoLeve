@@ -38,9 +38,10 @@ public class TarefasController : Controller
             .Include(t => t.Responsavel)
             .Include(t => t.GestorCriador);
 
-        query = isGestor
-            ? query.Where(t => t.GestorCriadorId == usuarioId || t.ResponsavelId == usuarioId)
-            : query.Where(t => t.ResponsavelId == usuarioId);
+        if (!isGestor)
+        {
+            query = query.Where(t => t.ResponsavelId == usuarioId);
+        }
 
         var totalItens = await query.CountAsync();
         var totalPaginas = (int)Math.Ceiling(totalItens / (double)itensPorPagina);
